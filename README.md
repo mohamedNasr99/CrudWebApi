@@ -1,14 +1,21 @@
 # Crud Operations 
 This project is about CRUD operations , i created Book , Author and Category domain classes and as tables in database usin asp.net core 8 web api
 
-## Features 
+## Content 
+<ul>
+  <li><a href = "Features-Id">Features</a></li>
+  <li><a href = "Technologies-Id">Technologies</a></li>
+  <li><a href = "Installation-Id">Installation</a></li>
+</ul>
+
+<h2 id = "Features-Id"> Features </h2>
 <ul>
   <li>CRUD operations for Author domain class</li>
   <li>CRUD operations for Book domain class</li>
   <li>CRUD operations for Category domain class</li>
 </ul>
 
-## Technologies
+<h2 id = "Technologies-Id"> Technologies </h2>
 <ul>
   <li>Asp.net core 8 web api</li>
   <li>Entity Framework Core as ORM</li>
@@ -20,3 +27,8 @@ This project is about CRUD operations , i created Book , Author and Category dom
   <li>UnitOfWork (UOW) Pattern</li>
   <li>DTOs : data transfer between layers</li>
 </ul>
+
+<h2 id = "Installation-Id"> Installation </h2>
+<p>1. Clone the Repo</p>
+<p> <input type = "text"> git clone https://github.com/mohamedNasr99/CrudWebApi.git</input> </p>
+
