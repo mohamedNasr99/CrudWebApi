@@ -5,6 +5,9 @@ This project is about CRUD operations , i created Book , Author and Category dom
   * [Features](#features)
   * [Technologies](#technologies)
   * [Installation](#installation)
+  * [Configuration](#configuration)
+  * [Database Schema](#database-schema)
+  * [Tables](#tables)
 
 ## Features
   * CRUD operations for Author domain class
@@ -25,6 +28,48 @@ This project is about CRUD operations , i created Book , Author and Category dom
 
 
 ## Installation
-<p>1. Clone the Repo</p>
-<p> <input type = "text"> git clone https://github.com/mohamedNasr99/CrudWebApi.git</input> </p>
+1. Clone the Repo:
+    ```bash
+    git clone https://github.com/mohamedNasr99/CrudWebApi.git
+    ```
+2. Restore packages:
+    ```bash
+    git restore
+    ```
+
+## Configuration
+``` c#
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+  "ConnectionStrings": {
+    "DefaultConnectionString": "Data Source=MOHAMED-NASR\\SQLDEV1;Initial Catalog=bookDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=True"
+  }
+}
+```
+
+## Database Schema
+![Db Schema](Screenshots/db.png)
+
+## Tables
+ * Author
+   * Id
+   * Name
+ * Book
+   * Id
+   * Name
+   * authorId
+   * categoryId
+ * Category
+   * Id
+   * Name
+
+## Seed Data
+### Seeding data within Entity framework core
+![seeding](Screenshots/seed.png)
 
