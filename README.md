@@ -21,7 +21,7 @@ This project is about CRUD operations , i created Book , Author and Category dom
   * Linq  to write queries directly within C#
   * Sql Server as DBMS
   * Automapper : automatically maps properties from one object to another based on property names
-  * Seeding Date within Ef Core
+  * Seeding Data within Ef Core
   * Repository Pattern
   * UnitOfWork (UOW) Pattern
   * DTOs : data transfer between layers
