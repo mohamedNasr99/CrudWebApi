@@ -10,5 +10,6 @@ namespace bookproject.DTOs
         public int authorId { get; set; }
         [Required]
         public int categoryId { get; set; }
+
     }
 }

@@ -135,3 +135,4 @@ C:\Users\H4\OneDrive\Desktop\seedData\bookproject\obj\Debug\net8.0\bookproject.p
 C:\Users\H4\OneDrive\Desktop\seedData\bookproject\obj\Debug\net8.0\bookproject.genruntimeconfig.cache
 C:\Users\H4\OneDrive\Desktop\seedData\bookproject\obj\Debug\net8.0\ref\bookproject.dll
 C:\Users\H4\OneDrive\Desktop\seedData\bookproject\bin\Debug\net8.0\AutoMapper.dll
+C:\Users\H4\OneDrive\Desktop\seedData\bookproject\obj\Debug\net8.0\bookproject.sourcelink.json

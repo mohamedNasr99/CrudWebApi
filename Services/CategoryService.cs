@@ -1,4 +1,5 @@
-﻿using bookproject.Data;
+﻿using AutoMapper;
+using bookproject.Data;
 using bookproject.DTOs;
 using bookproject.Models;
 using Microsoft.EntityFrameworkCore;
@@ -8,10 +9,12 @@ namespace bookproject.Services
     public class CategoryService : GenericRepository<Category>, ICategoryService
     {
         private new readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public CategoryService(ApplicationDbContext context) : base(context)
+        public CategoryService(ApplicationDbContext context, IMapper mapper) : base(context)
         {
             this._context = context;
+            this._mapper = mapper;
         }
 
         public async Task<responseDto> addAsync(categoryDto categoryDto)
@@ -73,6 +76,8 @@ namespace bookproject.Services
         {
             var categories = await _context.Categories.Include(c => c.Books).ToListAsync();
 
+            var destination = _mapper.Map<List<categoryDto>>(categories);
+
             if (categories != null)
             {
                 return new responseDto
@@ -80,7 +85,7 @@ namespace bookproject.Services
                     statusCode = 200,
                     isSuccess = true,
                     message = "There are Categories",
-                    model = categories
+                    model = destination
                 };
             }
 
@@ -97,6 +102,8 @@ namespace bookproject.Services
         {
             var category = await _context.Categories.Include(c => c.Books).FirstOrDefaultAsync(c => c.Id == Id);
 
+            var destination = _mapper.Map<categoryDto>(category);
+
             if (category != null)
             {
                 return new responseDto
@@ -104,7 +111,7 @@ namespace bookproject.Services
                     statusCode = 200,
                     isSuccess = true,
                     message = "Successfully",
-                    model = category
+                    model = destination
                 };
             }
 

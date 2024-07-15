@@ -1,4 +1,5 @@
-﻿using bookproject.Data;
+﻿using AutoMapper;
+using bookproject.Data;
 using bookproject.DTOs;
 using bookproject.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -10,10 +11,12 @@ namespace bookproject.Services
     public class BookService : GenericRepository<Book>, IBookService
     {
         private new readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public BookService(ApplicationDbContext context) : base(context)
+        public BookService(ApplicationDbContext context, IMapper mapper) : base(context)
         {
             this._context = context;
+            this._mapper = mapper;
         }
         public async Task<responseDto> addAsync([FromQuery]bookDto bookDto)
         {
@@ -74,16 +77,18 @@ namespace bookproject.Services
 
         public async Task<responseDto> getAllAsync()
         {
-            var authors = await _context.Books.ToListAsync();
+            var books = await _context.Books.Include(b => b.Author).Include(b => b.Category).ToListAsync();
 
-            if (authors != null)
+            var destination = _mapper.Map<List<bookDto>>(books);
+
+            if (books != null)
             {
                 return new responseDto
                 {
                     statusCode = 200,
                     isSuccess = true,
                     message = "There are books",
-                    model = authors
+                    model = destination
                 };
             }
 
@@ -98,7 +103,9 @@ namespace bookproject.Services
 
         public async Task<responseDto> getByIdAsync(int Id)
         {
-            var book = await _context.Books.FindAsync(Id);
+            var book = await _context.Books.Include(b => b.Author).Include(b => b.Category).FirstOrDefaultAsync(b => b.Id == Id);
+
+            var destination = _mapper.Map<bookDto>(book);
 
             if (book != null)
             {
@@ -107,7 +114,7 @@ namespace bookproject.Services
                     statusCode = 200,
                     isSuccess = true,
                     message = "successfully",
-                    model = book
+                    model = destination
                 };
             }
 

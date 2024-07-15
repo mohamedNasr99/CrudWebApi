@@ -1,4 +1,5 @@
-﻿using bookproject.Data;
+﻿using AutoMapper;
+using bookproject.Data;
 using bookproject.DTOs;
 using bookproject.Models;
 using Microsoft.EntityFrameworkCore;
@@ -8,10 +9,12 @@ namespace bookproject.Services
     public class AuthorService : GenericRepository<Author>, IAuthorService
     {
         private new readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public AuthorService(ApplicationDbContext context) : base(context)
+        public AuthorService(ApplicationDbContext context, IMapper mapper) : base(context)
         {
             this._context =context;
+            this._mapper = mapper;
         }
 
         public async Task<responseDto> addAsync(string Name)
@@ -74,6 +77,8 @@ namespace bookproject.Services
         {
             var authors = await _context.Authors.Include(a => a.Books).ToListAsync();
 
+            var destination = _mapper.Map<List<authorDto>>(authors);
+
             if (authors != null)
             {
                 return new responseDto
@@ -81,7 +86,7 @@ namespace bookproject.Services
                     statusCode = 200,
                     isSuccess = true,
                     message = "There are Authors",
-                    model = authors
+                    model = destination
                 };
             }
 
@@ -96,9 +101,11 @@ namespace bookproject.Services
 
         public async Task<responseDto> getByIdAsync(int Id)
         {
-                    var author = await _context.Authors
-                                            .Include(a => a.Books)
-                                            .FirstOrDefaultAsync(a => a.Id == Id);
+            var author = await _context.Authors
+                                    .Include(a => a.Books)
+                                    .FirstOrDefaultAsync(a => a.Id == Id);
+
+            var destination = _mapper.Map<authorDto>(author);
 
 
             if (author != null)
@@ -108,7 +115,7 @@ namespace bookproject.Services
                     statusCode = 200,
                     isSuccess = true,
                     message = "Successfully",
-                    model = author
+                    model = destination
                 };
             }
 

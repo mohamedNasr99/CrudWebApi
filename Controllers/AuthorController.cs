@@ -12,12 +12,10 @@ namespace bookproject.Controllers
     public class AuthorController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
 
-        public AuthorController(IUnitOfWork unitOfWork, IMapper mapper)
+        public AuthorController(IUnitOfWork unitOfWork)
         {
             this._unitOfWork = unitOfWork;
-            this._mapper = mapper;
         }
 
         [HttpGet("All")]
@@ -25,10 +23,9 @@ namespace bookproject.Controllers
         {
             var authors = await _unitOfWork.Authors.getAllAsync();
 
-            if (authors.statusCode == 200)
+            if (authors.isSuccess)
             {
-                var destinationList = _mapper.Map<List<authorDto>>(authors.model);
-                return Ok(destinationList);
+                return Ok(authors);
             }
 
             return NoContent();
@@ -40,10 +37,9 @@ namespace bookproject.Controllers
         {
             var author = await _unitOfWork.Authors.getByIdAsync(Id);
 
-            if (author.statusCode == 200)
+            if (author.isSuccess)
             {
-                var destination = _mapper.Map<authorDto>(author.model);
-                return Ok(destination);
+                return Ok(author);
             }
 
             return BadRequest(author);
@@ -54,7 +50,7 @@ namespace bookproject.Controllers
         {
             var author = await _unitOfWork.Authors.updateByIdAsync(Id, authorDto);
 
-            if (author.statusCode == 200)
+            if (author.isSuccess)
             {
                 return Ok(author);
             }
@@ -67,7 +63,7 @@ namespace bookproject.Controllers
         {
             var author = await _unitOfWork.Authors.addAsync(Name);
 
-            if (author.statusCode == 200)
+            if (author.isSuccess)
             {
                 return Ok(author);
             }
@@ -80,7 +76,7 @@ namespace bookproject.Controllers
         {
             var author  = await _unitOfWork.Authors.deleteAsync(Id);
 
-            if (author.statusCode == 200)
+            if (author.isSuccess)
             {
                 return Ok(author);
             }

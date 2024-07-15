@@ -21,7 +21,7 @@ namespace bookproject.Controllers
         {
             var books = await _unitOfWork.Books.getAllAsync();
 
-            if (books.statusCode == 200)
+            if (books.isSuccess)
             {
                 return Ok(books);
             }
@@ -34,7 +34,7 @@ namespace bookproject.Controllers
         {
             var book = await _unitOfWork.Books.getByIdAsync(Id);
 
-            if (book.statusCode == 200)
+            if (book.isSuccess)
             {
                 return Ok(book);
             }
@@ -47,7 +47,7 @@ namespace bookproject.Controllers
         {
             var book = await _unitOfWork.Books.deleteAsync(Id);
 
-            if (book.statusCode == 200)
+            if (book.isSuccess)
             {
                 return Ok(book);
             }
@@ -60,7 +60,7 @@ namespace bookproject.Controllers
         {
             var book = await _unitOfWork.Books.addAsync(bookDto);
 
-            if (book.statusCode == 200)
+            if (book.isSuccess)
             {
                 return Ok(book);
             }
@@ -73,7 +73,7 @@ namespace bookproject.Controllers
         {
             var book = await _unitOfWork.Books.updateByIdAsync(Id, bookDto);
 
-            if (book.statusCode == 200)
+            if (book.isSuccess)
             {
                 return Ok(book);
             }

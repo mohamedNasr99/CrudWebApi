@@ -11,12 +11,10 @@ namespace bookproject.Controllers
     public class CategoryController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
 
-        public CategoryController(IUnitOfWork unitOfWork, IMapper mapper)
+        public CategoryController(IUnitOfWork unitOfWork)
         {
             this._unitOfWork = unitOfWork;
-            this._mapper = mapper;
         }
 
         [HttpGet("All")]
@@ -24,10 +22,9 @@ namespace bookproject.Controllers
         {
             var categories = await _unitOfWork.Categories.getAllAsync();
 
-            if (categories.statusCode == 200)
+            if (categories.isSuccess)
             {
-                var destinationList = _mapper.Map<List<categoryDto>>(categories.model);
-                return Ok(destinationList);
+                return Ok(categories);
             }
 
             return NoContent();
@@ -39,10 +36,9 @@ namespace bookproject.Controllers
             var category = await _unitOfWork.Categories.getByIdAsync(Id);
 
             
-            if (category.statusCode == 200)
+            if (category.isSuccess)
             {
-                var destination = _mapper.Map<categoryDto>(category.model);
-                return Ok(destination);
+                return Ok(category);
             }
 
             return BadRequest(category);
@@ -53,7 +49,7 @@ namespace bookproject.Controllers
         {
             var category = await _unitOfWork.Categories.deleteAsync(Id);
 
-            if (category.statusCode == 200)
+            if (category.isSuccess)
             {
                 return Ok(category);
             }
@@ -66,7 +62,7 @@ namespace bookproject.Controllers
         {
             var category = await _unitOfWork.Categories.addAsync(categoryDto);
 
-            if (category.statusCode == 200)
+            if (category.isSuccess)
             {
                 return Ok(category);
             }
@@ -79,7 +75,7 @@ namespace bookproject.Controllers
         {
             var category = await _unitOfWork.Categories.updateByIdAsync(Id, categoryDto);
 
-            if (category.statusCode == 200)
+            if (category.isSuccess)
             {
                 return Ok(category);
             }
