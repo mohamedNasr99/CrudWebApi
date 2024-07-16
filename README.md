@@ -8,6 +8,7 @@ This project is about CRUD operations , i created Book , Author and Category dom
   * [Configuration](#configuration)
   * [Database Schema](#database-schema)
   * [Tables](#tables)
+  * [seeding](#seed-data)
 
 ## Features
   * CRUD operations for Author domain class
